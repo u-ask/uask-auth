@@ -1,0 +1,156 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  color: white;
+}
+#password-inputs {
+display: none;
+}
+#toggle-pwd:checked ~ #password-inputs {
+display: block;
+}
+#background {
+background-color: #2d3252;
+}
+input {
+background-color: #4676b4 !important;
+color: white !important;
+border: none !important;
+}
+input::placeholder {
+color: white !important;
+}
+select {
+background-color: #4676b4 !important;
+color: white !important;
+border: none !important;
+}
+.modal-dialog {
+max-width: 95% !important;
+min-height: 85% !important;
+top: 2% !important;
+box-shadow: 0px 0px 10px black !important;
+border-radius: 1rem !important;
+}
+.modal-content {
+border-radius: 1rem !important;
+background: transparent;
+height: 100% !important;
+position: absolute;
+}
+.login-body {
+background: linear-gradient(0.75turn, #002bb5, #1a55a1);
+border-radius: 1rem 0px 0px 1rem !important;
+}
+#sendcode {
+background-color: #69232d;
+color: white;
+border: none;
+}
+#signin {
+background-color: #a00007;
+color: white;
+border: none;
+}
+#signup-code {
+background-color: #a00007;
+color: white;
+border: none;
+}
+.info {
+background: transparent;
+color: white;
+}
+.image-container {
+background: white;
+overflow: hidden !important;
+border-radius: 0px 1rem 1rem 0px !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+}
+.image-container > svg {
+min-height: 100% !important;
+min-width: 100% !important;
+}
+.connexion {
+text-decoration: underline;
+text-decoration-color: #a00007;
+text-decoration-thickness: 3px;
+text-underline-offset: 3px;
+}
+.modal-header {
+align-items: start !important;
+}
+.alert-message {
+color: #a00007;
+background-color: #4676b4;
+border: solid #a00007;
+border-radius: 0.25rem;
+opacity: 0.8;
+font-weight: bold;
+}
+.logo {
+position: relative;
+height: 5%;
+}
+.logo > svg {
+height: 100%;
+}
+a {
+all: unset;
+cursor: pointer;
+}
+a:hover {
+color: #4676b4;
+}
+@media only screen and (max-width: 992px) {
+.login-body {
+  background: linear-gradient(0.75turn, #002bb5, #1a55a1);
+  border-radius: 1rem 1rem 1rem 1rem !important;
+}
+.logo > span {
+  display: none;
+}
+.logo {
+  bottom: 1%;
+  width: 100%;
+  position: absolute;
+}
+.logo > svg {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.modal-dialog {
+  min-height: 90% !important;
+  top: 0% !important;
+}
+.image-container {
+  display: none !important;
+}
+.image-container > svg {
+  display: none !important;
+}
+}
+@media only screen and (max-height: 800px) {
+  .modal-dialog {
+    min-height: 90% !important;
+    top: 0% !important;
+  }
+  .form-control-lg {
+    min-height: calc(1.5em + 2px) !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 0.3rem !important;
+  }
+  .btn-lg {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 0.3rem !important;
+  }
+  h1 {
+    font-size: calc(1rem + 1vw)
+  }
+  h3 {
+    font-size: calc(1rem + .3vw);
+  }
+}

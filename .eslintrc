@@ -1,0 +1,12 @@
+{
+    "root": true,
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended"
+    ],
+    "ignorePatterns": ["node_modules", "dist", "db"]
+  }

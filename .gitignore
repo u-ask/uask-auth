@@ -1,0 +1,4 @@
+node_modules
+out
+db/*.sqlite3
+.env
