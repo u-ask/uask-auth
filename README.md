@@ -1,7 +1,7 @@
 # U-ASK Authentication
-Authentication for [U-ASK](https://github.com/u-ask/uask) system. The authentication sub-system follows [OpenId Connect](https://openid.net/connect/) standard.
+Authentication for [U-ASK](https://github.com/u-ask/uask#readme) system. The authentication sub-system follows [OpenId Connect](https://openid.net/connect/) standard.
 
-This library is intended to be used with [U-ASK Management System](https://github.com/u-ask/uask-sys).
+This library is intended to be used with [U-ASK Management System](https://github.com/u-ask/uask-sys#readme).
 
 # Install
 ```
@@ -99,7 +99,7 @@ const contentSecurityPolicy = {
   },
 };
 server
-    .use(helmet({ contentSecurityPolicy }))
+  .use(helmet({ contentSecurityPolicy }))
 ```
 
 ## `AccountManager` and `Account` classes
@@ -139,4 +139,4 @@ A `SurveyClaims` object is a map indexed by survey names with the following valu
 | `samples: string[]`      | the samples the account has access to
 | `participants: string[]` | the participants the accout has access to
 
-For more information about roles, samples and participants see [U-ASK Domain Model](https://github.com/u-ask/uask-dom) and [U-ASK Management System](https://github.com/u-ask/uask-sys)
+For more information about roles, samples and participants see [U-ASK Domain Model](https://github.com/u-ask/uask-dom#readme) and [U-ASK Management System](https://github.com/u-ask/uask-sys#readme).

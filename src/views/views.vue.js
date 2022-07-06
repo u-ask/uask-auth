@@ -97,7 +97,7 @@ export const AroneLogo = {
         h("img", {
           src: "/assets/logo.svg",
           alt: "Arone Logo",
-          class: "col-lg-auto col",
+          class: "col-lg-auto col mx-2",
         }),
       ]
     );
