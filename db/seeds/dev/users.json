@@ -188,14 +188,14 @@
       "P11-05": {
         "samples": [],
         "role": "writer:external",
-        "participantIds": [
+        "participants": [
           "000003"
         ]
       },
       "Demo-eCRF": {
         "samples": [],
         "role": "writer:external",
-        "participantIds": [
+        "participants": [
           "000003"
         ]
       }

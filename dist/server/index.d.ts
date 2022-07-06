@@ -3,11 +3,19 @@ import { Provider, AdapterConstructor } from "oidc-provider";
 import { TokenSet } from "openid-client";
 import { Protocol, Router } from "restana";
 
+declare type SurveyClaims = {
+  [survey: string]: {
+    role: string;
+    samples: string[];
+    participants: string[];
+  };
+};
+
 declare class Account {
   readonly email: string;
-  readonly surveys: {[survey: string]: {samples: string[], role: string, participantIds: string[]}};
+  readonly surveys: SurveyClaims;
   readonly [claim: string]: unknown;
-  constructor(userid: string, surveys: {[survey: string]: {samples: string[], role: string}}, args: {[k: string]: unknown});
+  constructor(userid: string, surveys: SurveyClaims, claims: {[k: string]: unknown});
 }
 
 declare type Notifier = (account: Account, c: { code: string; }) => Promise<void>;
@@ -17,7 +25,6 @@ declare function service(provider: Provider, accountManager: AccountManager, not
 declare class AccountManager {
   constructor(client: Knex);
   findOIDCAccount(ctx: unknown, id: string): Promise<unknown>;
-  getAll(): Promise<Account[]>;
   getBySurvey(survey: string): Promise<Account[]>;
   getByUserid(email: string): Promise<Account | undefined>;
   save(account: Account): Promise<void>;

@@ -1,7 +1,7 @@
 exports.up = async function (knex) {
   const accounts = await knex.table("accounts").whereNotNull("participant_id");
   for (const a of accounts) {
-    const surveys = { ...JSON.parse(a.surveys), participantIds: [a.participant_id] };
+    const surveys = { ...JSON.parse(a.surveys), participants: [a.participant_id] };
     await knex
       .table("accounts")
       .where("id", a.id)
@@ -18,8 +18,8 @@ exports.down = async function (knex) {
   });
   const accounts = await knex.table("accounts");
   for (const a of accounts) {
-    const { participantIds, ...surveys } = JSON.parse(a.surveys);
-    const participantId = participantIds?.[0];
+    const { participants, ...surveys } = JSON.parse(a.surveys);
+    const participantId = participants?.[0];
     await knex
       .table("accounts")
       .where("id", a.id)
