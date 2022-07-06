@@ -1,6 +1,8 @@
 # U-ASK Authentication
 Authentication for [U-ASK](https://github.com/u-ask/uask) system. The authentication sub-system follows [OpenId Connect](https://openid.net/connect/) standard.
 
+This library is intended to be used with [U-ASK Management System](https://github.com/u-ask/uask-sys).
+
 # Install
 ```
 npm install uask-auth
