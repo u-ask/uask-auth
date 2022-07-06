@@ -13,7 +13,7 @@ declare class Account {
 declare type Notifier = (account: Account, c: { code: string; }) => Promise<void>;
 
 declare function provider(adapter: AdapterConstructor, findAccount: (ctx: unknown, id: string) => Promise<unknown>): Provider;
-declare function service(provider: Provider, client: Knex, notify?: Notifier): Router<Protocol>;
+declare function service(provider: Provider, accountManager: AccountManager, notify?: Notifier): Router<Protocol>;
 declare class AccountManager {
   constructor(client: Knex);
   findOIDCAccount(ctx: unknown, id: string): Promise<unknown>;

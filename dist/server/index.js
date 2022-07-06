@@ -655,11 +655,11 @@ function askedForSignUp(req) {
 
 const dlog = debug("uask-auth:service");
 
-function service(provider, client, notify = console.log) {
+function service(provider, accountManager, notify = console.log) {
   const service = restana().newRouter();
   service.use(setNoCache);
   service.use(setHost);
-  registerInteractions(provider, notify, client, service);
+  registerInteractions(provider, notify, accountManager, service);
   service.use(provider.callback());
   return service;
 }
@@ -680,8 +680,8 @@ function setHost(req, res, next) {
   next();
 }
 
-function registerInteractions(provider, notify, client, service) {
-  const manager = new InteractionManager(provider, notify, client);
+function registerInteractions(provider, notify, accountManager, service) {
+  const manager = new InteractionManager(provider, notify, accountManager);
 
   service.get("/interaction/:uid", (req, res, next) =>
     manager.interaction(req, res, next)
@@ -700,8 +700,8 @@ function registerInteractions(provider, notify, client, service) {
 }
 
 class InteractionManager {
-  constructor(provider, notify, client) {
-    this.accountManager = new AccountManager(client);
+  constructor(provider, notify, accountManager) {
+    this.accountManager = accountManager;
     this.provider = provider;
     this.notify = notify;
   }
