@@ -1,6 +1,6 @@
 import test from "tape";
 import sinon from "sinon";
-import { shutdown, init } from "./test-init.js";
+import { shutdown, init, seed } from "./test-init.js";
 import {
   signinTry,
   continueWithCodeAuthentication,
@@ -24,7 +24,7 @@ test.onFinish(async () => {
 
 if (process.env.SKIP_SELENIUM_TESTS != "true") {
   test("PKCE", async t => {
-    await dbClient.seed.run();
+    await seed(dbClient);
     const { browser } = await appClient;
     const page = await browser.newPage();
     const client = new Client();

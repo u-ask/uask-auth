@@ -9,7 +9,7 @@ const client = knex(config[process.env.APP_ENV ?? "development"]);
 test.onFinish(() => client.destroy());
 
 const exampleAccount0 = exampleAccounts.find(
-  u => u.userid == "investigator001@example.com"
+  u => u.userid == "writer"
 );
 const manager = new AccountManager(client);
 
@@ -17,22 +17,21 @@ test("Save an account in knex database", async t => {
   await client.table("accounts").del();
   await manager.save(
     new Account(
-      "investigator001@example.com",
-      { "P11-05": { samples: ["001"], role: "investigator" } },
+      "writer",
+      { "P11-05": { samples: ["001"], role: "writer" } },
       {
         ...exampleAccount0,
         password: "passw0rd",
       }
     )
   );
-  const { salt: salt0, password: password0, ...result0 } = await client
+  const { salt: salt0, password: password0, id, ...result0 } = await client
     .table("accounts")
-    .where({ userid: "investigator001@example.com" })
+    .where({ userid: "writer" })
     .select(["id", "email", "given_name", "surname", "salt", "password"])
     .then(r => r[0]);
   const expectedResult0 = {
-    id: "c2ac2b4a-2262-4e2f-847a-a40dd3c4dcd5",
-    email: "investigator001@example.com",
+    email: "writer@example.com",
     given_name: "Henriette",
     surname: "Monsseau",
   };
@@ -45,18 +44,18 @@ test("Save an account in knex database", async t => {
 test("Update an account in knex database", async t => {
   await client.table("accounts").del();
   await manager.save(
-    new Account("investigator001@example.com", "P11-05", {
+    new Account("writer", "P11-05", {
       ...exampleAccount0,
       password: "passw0rd",
     })
   );
   const { salt: salt0, password: password0 } = await client
     .table("accounts")
-    .where({ userid: "investigator001@example.com" })
+    .where({ userid: "writer" })
     .select(["salt", "password"])
     .then(r => r[0]);
   await manager.save(
-    new Account("investigator001@example.com", "P11-05", {
+    new Account("writer", "P11-05", {
       given_name: "Volt",
       id: exampleAccount0.id,
       userid: exampleAccount0.userid,
@@ -64,7 +63,7 @@ test("Update an account in knex database", async t => {
   );
   const { salt: salt1, password: password1, ...result1 } = await client
     .table("accounts")
-    .where({ userid: "investigator001@example.com" })
+    .where({ userid: "writer" })
     .select(["id", "userid", "given_name", "surname", "salt", "password"])
     .then(r => r[0]);
   t.equal(result1.id, exampleAccount0.id);
@@ -78,7 +77,7 @@ test("Update an account in knex database", async t => {
 test("find an account", async t => {
   await client.table("accounts").del();
   await manager.save(exampleAccount0);
-  const id = "c2ac2b4a-2262-4e2f-847a-a40dd3c4dcd5";
+  const id = exampleAccount0.id;
   const account = await manager.findOIDCAccount(undefined, id);
   const claims = await account.claims();
   t.equal(claims.sub, exampleAccount0.id);
@@ -92,15 +91,15 @@ test("Authentication failure", async t => {
   await client.table("accounts").del();
   await manager.save(
     new Account(
-      "investigator001@example.com",
-      { "P11-05": { samples: ["001"], role: "investigator" } },
+      "writer",
+      { "P11-05": { samples: ["001"], role: "writer" } },
       {
         ...exampleAccount0,
         password: "passw0rd",
       }
     )
   );
-  const email = "investigator001@example.com";
+  const email = "writer001@example.com";
   const id = await manager.authenticate({ email, password: "passw0rd!" });
   t.false(id);
   t.end();
@@ -110,22 +109,22 @@ test("Authentication success", async t => {
   await client.table("accounts").del();
   await manager.save(
     new Account(
-      "investigator001@example.com",
-      { "P11-05": { samples: ["001"], role: "investigator" } },
+      "writer",
+      { "P11-05": { samples: ["001"], role: "writer" } },
       {
         ...exampleAccount0,
         password: "passw0rd",
-        userid: "investigator001@example.com",
+        userid: "writer",
       }
     )
   );
-  const email = "investigator001@example.com";
+  const userid = "writer";
   const id = await manager.authenticate({
     method: "password",
-    email,
+    userid,
     password: "passw0rd",
   });
-  t.equal(id, "c2ac2b4a-2262-4e2f-847a-a40dd3c4dcd5");
+  t.equal(id, exampleAccount0.id);
   t.end();
 });
 
@@ -151,15 +150,15 @@ test("Authentication with temporary code", async t => {
   await client.table("accounts").del();
   await manager.save(
     new Account(
-      "investigator001@example.com",
+      "writer",
       { "P11-05": { samples: ["001"], role: "participant" } },
       {
         ...exampleAccount0,
-        email: "investigator001@example.com",
+        email: "writer001@example.com",
       }
     )
   );
-  const userid = "investigator001@example.com";
+  const userid = "writer";
   const code = await generateCode({ userid });
   const id = await manager.authenticate({ method: "code", userid, code });
   t.ok(id);
@@ -206,7 +205,7 @@ test("Find account by email", async t => {
   await client.table("accounts").del();
   await manager.save(exampleAccount0);
   const account = await new AccountManager(client).getByUserid(
-    "investigator001@example.com"
+    "writer"
   );
   t.true(account);
   t.equal(account.id, exampleAccount0.id);
@@ -215,7 +214,7 @@ test("Find account by email", async t => {
 
 test("Generate random temporary codes", async t => {
   await client.table("accounts").del();
-  const userid = "investigator001@example.com";
+  const userid = "writer";
   const code = await generateCode({ userid });
   t.equal(code.length, 6);
   t.notEqual(await generateCode({ userid }), code);

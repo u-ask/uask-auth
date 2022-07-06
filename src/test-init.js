@@ -4,6 +4,7 @@ import puppeteer from "puppeteer-core";
 import sinon from "sinon";
 import { shutdown as devServerShutdown } from "./devserver.js";
 import { client } from "./notification.js";
+import { exampleAccounts } from "./example.js";
 
 class TokenStealer {
   constructor() {
@@ -88,8 +89,9 @@ export let tokenStealer;
 export let appClient;
 let initCallCount = 0;
 
-export function init() {
+export async function init() {
   initCallCount++;
+
   if (initCallCount == 1) {
     const browserURL = "http://127.0.0.1:21222";
     tokenStealer = new TokenStealer();
@@ -102,6 +104,25 @@ export function init() {
     );
   }
   return appClient;
+}
+
+export async function seed(dbClient) {
+  await dbClient.table("accounts").del();
+  await dbClient.table("accounts").insert(exampleAccounts.map(u => {
+    return {
+      id: u.id,
+      email: u.email,
+      email_verified: u.email_verified,
+      given_name: u.given_name,
+      password: u.password,
+      surname: u.surname,
+      salt: u.salt,
+      title: u.title,
+      phone: u.phone,
+      surveys: JSON.stringify(u.surveys),
+      userid: u.email
+    };
+  }));
 }
 
 export async function shutdown() {

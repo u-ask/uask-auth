@@ -1,5 +1,5 @@
 import test from "tape";
-import { shutdown, init } from "./test-init.js";
+import { shutdown, init, seed } from "./test-init.js";
 import {
   startImplicitFlow,
   typePassword,
@@ -32,7 +32,7 @@ test.onFinish(async () => {
 
 if (process.env.SKIP_SELENIUM_TESTS != "true") {
   test("Implicit flow with invalid password", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startImplicitFlow();
     await typePassword(page, "wrong_password");
     await signinTry(page);
@@ -42,7 +42,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Implicit flow with invalid code", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startImplicitFlow();
     await continueWithCodeAuthentication(page);
     const input = await page.waitForSelector("input[type=text][name=code]", {
@@ -56,7 +56,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Implicit flow with valid code", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startImplicitFlow();
     const code = await continueWithCodeAuthentication(page);
     await typeCode(page, code);
@@ -69,7 +69,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Implicit flow with paswword change failure", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startImplicitFlow();
     const code = await continueWithCodeAuthentication(page);
     await typeCode(page, code);
@@ -81,7 +81,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Implicit flow with paswword change success", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startImplicitFlow();
     const code = await continueWithCodeAuthentication(page);
     await typeCode(page, code);
@@ -99,7 +99,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Sign up without password change", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startSignupFlow();
     await typeSignupInfos(page);
     const code = await validateSignup(page);
@@ -112,7 +112,7 @@ if (process.env.SKIP_SELENIUM_TESTS != "true") {
   });
 
   test("Signup with password setting", async t => {
-    await client.seed.run();
+    await seed(client);
     const page = await startSignupFlow();
     await typeSignupInfos(page);
     const code = await validateSignup(page);
