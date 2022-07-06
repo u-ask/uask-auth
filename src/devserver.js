@@ -18,7 +18,7 @@ const oidc = provider(DbAdapter, findAccount)
 export const server = restana();
 const appRoot = process.env.AUTH_APP_PATH ?? "src/views";
 server.use("/", serveStatic(appRoot))
-server.use("/oidc", service(oidc, dbClient, notify));
+server.use("/oidc", service(oidc, manager, notify));
 server.use(bodyParser.json());
 server.post("/notification/authent/code", (req, res) => {
   console.log(req.body);
