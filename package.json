@@ -1,17 +1,18 @@
 {
   "name": "uask-auth",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "uask authentication",
+  "main": "./dist/client/es6/index.js",
   "exports": {
-    ".": "./dist/server/index.js",
-    "./client": "./dist/client/index.js",
+    ".": "./dist/client/index.js",
+    "./server": "./dist/server/index.js",
     "./example": "./dist/server/example.js"
   },
-  "types": "./dist/server/index.d.ts",
+  "types": "./dist/client/index.d.ts",
   "typesVersions": {
     "*": {
-      "client": [
-        "dist/client/index.d.ts"
+      "server": [
+        "dist/server/index.d.ts"
       ],
       "example": [
         "dist/server/example.d.ts"
@@ -57,6 +58,9 @@
     "uuid-random": "^1.3.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@babel/preset-env": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
