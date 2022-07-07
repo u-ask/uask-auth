@@ -1,6 +1,6 @@
 import restana from "restana";
 import bodyParser from "body-parser";
-import { Account, AccountManager, generateCode } from "./account.js";
+import { Account, generateCode } from "./account.js";
 import debug from "debug";
 import {
   renderLogin,

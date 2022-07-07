@@ -15,6 +15,7 @@ export function renderLogin(req, res, data, flash) {
     ...params,
     title: "Welcome!",
     subtitle: "Catch your data easily.",
+    saasMode: process.env.SAAS_MODE != "false",
     flash,
   });
   res.send(html, 200, {

@@ -3065,16 +3065,20 @@ const SignupForm = {
 
 const LoginHeader = {
   name: "LoginHeader",
-  props: ["title", "subtitle", "selectedTab"],
+  props: ["title", "subtitle", "saasMode", "selectedTab"],
   render() {
     return h(
       "div",
       { class: "modal-header flex-column border-0 login-header" },
       [
-        h(NavigationBar, {
-          onChangeTab: tab => this.$emit("changeTab", tab),
-          selectedTab: this.selectedTab,
-        }),
+        ...(this.saasMode == "true"
+          ? [
+              h(NavigationBar, {
+                onChangeTab: tab => this.$emit("changeTab", tab),
+                selectedTab: this.selectedTab,
+              }),
+            ]
+          : []),
         h("h1", { class: "card-title mb-md-1 mt-md-5 mt-2" }, this.title),
         h("h3", { class: "card-title mb-md-3 mt-1 mb-1" }, this.subtitle),
       ]
@@ -3084,7 +3088,15 @@ const LoginHeader = {
 
 const Login = {
   name: "Login",
-  props: ["title", "subtitle", "uid", "method", "loginHint", "flash"],
+  props: [
+    "title",
+    "subtitle",
+    "saasMode",
+    "uid",
+    "method",
+    "loginHint",
+    "flash",
+  ],
   data() {
     return {
       selectedTab: "signin",
@@ -3116,6 +3128,7 @@ const Login = {
                       h(LoginHeader, {
                         title: this.title,
                         subtitle: this.subtitle,
+                        saasMode: this.saasMode,
                         selectedTab: this.selectedTab,
                         onChangeTab: tab => (this.selectedTab = tab),
                       }),
@@ -3126,10 +3139,10 @@ const Login = {
                             loginHint: this.loginHint,
                           })
                         : h(SignupForm, {
-                          uid: this.uid,
-                          method: this.method,
-                          loginHint: this.loginHint,
-                        }),
+                            uid: this.uid,
+                            method: this.method,
+                            loginHint: this.loginHint,
+                          }),
                     ].concat(
                       this.flash ? [h(AlertMessage, { flash: this.flash })] : []
                     )

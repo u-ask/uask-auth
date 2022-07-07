@@ -40,8 +40,11 @@ The systems uses the following environment variables :
 | CALLBACK_ROOT_URL | the authorized open id callback URL          | `https://uask.example.com/callback`
 | AUTH_URL          | the public URL of the authentication service | `https://uask-api.example.com:3000/oidc`
 | AUTH_JWKS         | a JSON stringified JWKS                      | `{"keys":[{"crv":"P-256",...`
+| SAAS_MODE         | set to false to remove sign up               | `true`
 
 Setting AUTH_JWKS to `{}` will use a quick start development-only signing set. For more information about JWKS generation, see [this example](https://github.com/panva/node-oidc-provider-example/blob/main/01-oidc-configured/generate-keys.js).
+
+SAAS_MODE defaults to `true`, this will allow anybody to sign up to the system. SAAS mode is required for the first start to allow the first user to sign up. This first user will be able to create more users.
 
 ## Middleware setup
 The authentication middleware is setup as follows :

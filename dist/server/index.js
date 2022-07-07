@@ -269,6 +269,7 @@ function loginTemplate (method, nonce) {
             return h(Login, {
               title: "<%= locals.title %>", 
               subtitle: "<%= locals.subtitle %>", 
+              saasMode: "<%= locals.saasMode %>", 
               uid: "<%= locals.uid %>",
               method: "${method}",
               loginHint: "<%= locals.params.login_hint %>",
@@ -542,6 +543,7 @@ function renderLogin(req, res, data, flash) {
     ...params,
     title: "Welcome!",
     subtitle: "Catch your data easily.",
+    saasMode: process.env.SAAS_MODE != "false",
     flash,
   });
   res.send(html, 200, {

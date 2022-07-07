@@ -22,6 +22,7 @@ export default function (method, nonce) {
             return h(Login, {
               title: "<%= locals.title %>", 
               subtitle: "<%= locals.subtitle %>", 
+              saasMode: "<%= locals.saasMode %>", 
               uid: "<%= locals.uid %>",
               method: "${method}",
               loginHint: "<%= locals.params.login_hint %>",
