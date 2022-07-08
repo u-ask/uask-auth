@@ -1,3 +1,4 @@
+![U-ASK](./logo.svg)
 # U-ASK Authentication
 Authentication for [U-ASK](https://github.com/u-ask/uask#readme) system. The authentication sub-system follows [OpenId Connect](https://openid.net/connect/) standard.
 
