@@ -4,6 +4,8 @@ Authentication for [U-ASK](https://github.com/u-ask/uask#readme) system. The aut
 
 This library is intended to be used with [U-ASK Management System](https://github.com/u-ask/uask-sys#readme).
 
+_*Note:*_ npm scripts needs bash ; please [configure git bash](https://stackoverflow.com/questions/23243353/how-to-set-shell-for-npm-run-scripts-in-windows) as script shell for npm on Windows.
+
 # Install
 ```
 npm install uask-auth
