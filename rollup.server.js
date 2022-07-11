@@ -28,6 +28,7 @@ export default [
         targets: [
           { src: "src/server.d.ts", dest: "dist/server", rename: "index.d.ts" },
           { src: "src/example.d.ts", dest: "dist/server" },
+          { src: ["db/migrations", "db/seeds"], dest: "dist" },
         ],
       }),
     ],
