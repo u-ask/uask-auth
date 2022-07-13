@@ -50,6 +50,7 @@ export default [
             src: "src/views/style",
             dest: "dist/app",
           },
+          { src: "favicon.ico", dest: "dist/app" },
         ],
       }),
     ],
